@@ -4,7 +4,8 @@ import Movielist from "./componment/Movielist";
 import Add from "./componment/Add";
 import { useRef } from "react";
 import Filters from "./componment/Filters";
-
+import {Route,Routes,Link} from "react-router-dom"
+import Onlymovie from "./componment/Onlymovie";
 function App() {
   const [movies,setMovies]=useState(data)
   const [newMovie,setNewMovie]=useState([])
@@ -35,12 +36,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Filters handleSearch={handleSearch} tosearch={tosearch} handleRate={handleRate}/>
-        <Add mytitle={mytitle} myimg={myimg} myrate={myrate} handleAdd={handleAdd}/>
-       <Movielist movies={[...movies,...newMovie].filter(movie => movie.title.toLowerCase().includes(search.toLowerCase()))}/> 
+        
+      
+    <Filters handleSearch={handleSearch} tosearch={tosearch} handleRate={handleRate}/>
+      
+        <Add mytitle={mytitle} myimg={myimg} myrate={myrate} handleAdd={handleAdd}/> 
+        <Routes>
+        <Route path = "/" element= {< Movielist movies={[...movies,...newMovie].filter(movie => movie.title.toLowerCase().includes(search.toLowerCase()))}/> }/>
+       <Route path="/movie/:name" element={<Onlymovie data={data}/>}/>
+       </Routes>
       </header>
     </div>
   );
 }
+
 
 export default App;
